@@ -23,6 +23,14 @@ jobs:
 - job: Linux
   pool:
     vmImage: 'ubuntu-latest'
+  strategy:
+    matrix:
+      CK_1_9_2:
+        ConfluentKafkaVersion: '1.9.2'
+        LibrdkafkaRedistVersion: '1.9.2'
+      CK_2_14_0:
+        ConfluentKafkaVersion: '2.14.0'
+        LibrdkafkaRedistVersion: '2.14.0'
   steps:
   - task: UseDotNet@2
     displayName: 'Install .NET SDK (global.json)'
@@ -43,7 +51,7 @@ jobs:
           ches/kafka
       sleep 15
     displayName: Docker kafka for integration tests
-  - script: dotnet test build.proj -v d
+  - script: dotnet test build.proj -v d /p:ConfluentKafkaVersion=$(ConfluentKafkaVersion) /p:LibrdkafkaRedistVersion=$(LibrdkafkaRedistVersion)
     displayName: Run Integration tests
     env:
       TEST_KAFKA_BROKER: localhost:9092

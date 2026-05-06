@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <ConfluentKafkaVersion Condition="'$(ConfluentKafkaVersion)' == ''">1.9.2</ConfluentKafkaVersion>
+    <LibrdkafkaRedistVersion Condition="'$(LibrdkafkaRedistVersion)' == ''">$(ConfluentKafkaVersion)</LibrdkafkaRedistVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,8 +18,8 @@
     <PackageReference Include="FSharp.Core" Version="4.3.4" />
 
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Confluent.Kafka" Version="[1.9.2]" />
-    <PackageReference Include="librdkafka.redist" Version="[1.9.2]" />
+    <PackageReference Include="Confluent.Kafka" Version="[$(ConfluentKafkaVersion)]" />
+    <PackageReference Include="librdkafka.redist" Version="[$(LibrdkafkaRedistVersion)]" />
     <PackageReference Include="Serilog" Version="2.7.1" />
   </ItemGroup>
 
